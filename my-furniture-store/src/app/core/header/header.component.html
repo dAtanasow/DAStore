@@ -1,36 +1,22 @@
-<header class="header">
-  <a href="#" class="logo">FurnitureStore</a>
-  <nav class="nav">
-    <a routerLink="/home">Home</a>
-    <a routerLink="/catalog">Shop</a>
-    <a routerLink="/about">About</a>
-    <a routerLink="/contact">Contact</a>
+<header>
+  <nav class="nav-container">
+    <div class="site-title">DAStore</div>
+    <ul class="nav-menu">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/catalog">Catalog</a></li>
+      @if(isLoggedIn) {
+      <li><a routerLink="/my-ads">My Ads</a></li>
+      <li><a routerLink="/add-ad">Add New Ad</a></li>
+      }
+    </ul>
+    <div class="auth-buttons">
+      @if(isLoggedIn) {
+      <a routerLink="/profile">Profile</a>
+      <a routerLink="/logout">Logout</a>
+      }@else{
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
+      }
+    </div>
   </nav>
-  <div class="actions">
-    <div class="cart">
-      <img
-        src="https://img.icons8.com/ios-filled/24/000000/shopping-cart.png"
-        alt="Cart"
-      />
-      <span>3</span>
-    </div>
-    @if(!isLoggedIn) {
-    <a routerLink="/login">Login</a>
-    <a routerLink="/register">Register</a>
-    } @else {
-    <div class="profile">
-      <img
-        src="https://img.icons8.com/ios-filled/50/000000/user.png"
-        alt="User Profile"
-      />
-      <span>Profile</span>
-      <div class="dropdown">
-        <a href="#">My Ads</a>
-        <a href="#">Create New Ad</a>
-
-        <a href="#">Logout</a>
-      </div>
-    </div>
-    }
-  </div>
 </header>

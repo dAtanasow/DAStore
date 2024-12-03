@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-body {
+body,
+html {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
-
 a {
   text-decoration: none;
   color: inherit;
@@ -17,6 +18,11 @@ a:hover {
   text-decoration: underline;
 }
 
-.container {
+.page-container {
+  min-height: 100vh;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
