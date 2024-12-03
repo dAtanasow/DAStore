@@ -1,0 +1,110 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+}
+
+.header .logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.header .nav {
+  display: flex;
+  gap: 20px;
+}
+
+.header .nav a {
+  text-decoration: none;
+  color: #555;
+  font-size: 24px;
+  transition: color 0.3s;
+}
+
+.header .nav a:hover {
+  color: #000;
+}
+
+.header .actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header .actions .cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header .actions .cart span {
+  background-color: #ff6347;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.header .actions .profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.header .actions .profile img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.header .actions .profile .dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.header .actions .profile:hover .dropdown {
+  display: block;
+}
+
+.header .actions .profile .dropdown a {
+  display: block;
+  text-decoration: none;
+  color: #555;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+.header .actions .profile .dropdown a:hover {
+  background-color: #f4f4f4;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header .nav {
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+}
