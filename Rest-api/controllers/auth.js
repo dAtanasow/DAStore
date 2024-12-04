@@ -13,9 +13,9 @@ const removePassword = (data) => {
 }
 
 function register(req, res, next) {
-    const { tel, email, username, password, repeatPassword } = req.body;
+    const { email, username, password, repeatPassword } = req.body;
 
-    return userModel.create({ tel, email, username, password })
+    return userModel.create({ email, username, password })
         .then((createdUser) => {
             createdUser = bsonToJson(createdUser);
             createdUser = removePassword(createdUser);
@@ -94,12 +94,29 @@ function getProfileInfo(req, res, next) {
 
 function editProfileInfo(req, res, next) {
     const { _id: userId } = req.user;
-    const { tel, username, email } = req.body;
+    const { username, email } = req.body;
 
-    userModel.findOneAndUpdate({ _id: userId }, { tel, username, email }, { runValidators: true, new: true })
+    userModel.findOneAndUpdate({ _id: userId }, { username, email }, { runValidators: true, new: true })
         .then(x => { res.status(200).json(x) })
         .catch(next);
 }
+
+function getUserCart(req, res, next) {
+    const userId = req.params.id;
+
+    userModel.findById(userId)
+        .populate('cart')
+        .then((user) => {
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            res.status(200).json(user);
+        })
+        .catch((err) => {
+            next(err);
+        });
+}
+
 
 module.exports = {
     login,
@@ -107,4 +124,5 @@ module.exports = {
     logout,
     getProfileInfo,
     editProfileInfo,
+    getUserCart
 }

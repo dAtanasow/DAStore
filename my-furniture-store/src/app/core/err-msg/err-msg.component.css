@@ -1,0 +1,26 @@
+.error-msg {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.error-msg-icon {
+    margin-right: 10px;
+}
+
+.error-msg-close {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #721c24;
+    font-size: 16px;
+    font-weight: bold;
+}

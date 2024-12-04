@@ -4,28 +4,7 @@ const saltRounds = Number(process.env.SALTROUNDS) || 5;
 
 const { ObjectId } = mongoose.Schema.Types;
 
-const cartItemSchema = new mongoose.Schema({
-    itemId: {
-        type: ObjectId,
-        ref: 'Item',
-        required: true
-    },
-    quantity: {
-        type: Number,
-        required: true,
-        min: 1
-    }
-});
-
 const userSchema = new mongoose.Schema({
-    tel: {
-        type: String,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     username: {
         type: String,
         required: true,
@@ -33,10 +12,15 @@ const userSchema = new mongoose.Schema({
         minlength: [5, 'Username should be at least 5 characters'],
         validate: {
             validator: function (v) {
-                return /[a-zA-Z0-9]+/g.test(v);
+                return /^[a-zA-Z0-9]+$/g.test(v);
             },
             message: props => `${props.value} must contains only latin letters and digits!`
         },
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
     },
     password: {
         type: String,
@@ -53,7 +37,10 @@ const userSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "Ad"
     }],
-    cart: [cartItemSchema]
+    cart: [{
+        type: ObjectId,
+        ref: "Ad"
+    }],
 }, { timestamps: { createdAt: 'created_at' } });
 
 userSchema.methods = {
@@ -81,4 +68,7 @@ userSchema.pre('save', function (next) {
     next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = {
+    User: mongoose.model('User', userSchema),
+    CartItem: mongoose.model('CartItem', cartItemSchema),
+};
