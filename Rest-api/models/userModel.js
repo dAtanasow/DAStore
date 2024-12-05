@@ -35,11 +35,11 @@ const userSchema = new mongoose.Schema({
     },
     ads: [{
         type: ObjectId,
-        ref: "Ad"
+        ref: "Furniture"
     }],
     cart: [{
         type: ObjectId,
-        ref: "Ad"
+        ref: "Furniture"
     }],
 }, { timestamps: { createdAt: 'created_at' } });
 
@@ -68,7 +68,4 @@ userSchema.pre('save', function (next) {
     next();
 });
 
-module.exports = {
-    User: mongoose.model('User', userSchema),
-    CartItem: mongoose.model('CartItem', cartItemSchema),
-};
+module.exports = mongoose.model('User', userSchema);

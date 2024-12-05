@@ -1,8 +1,8 @@
 const authController = require('./auth');
-const adController = require('./adController');
+const furnitureController = require('./furnitureController');
 
 
 module.exports = {
     authController,
-    adController
+    furnitureController
 }

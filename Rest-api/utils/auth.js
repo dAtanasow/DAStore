@@ -1,9 +1,7 @@
 const jwt = require('./jwt');
 const { authCookieName } = require('../app-config');
-const {
-    userModel,
-    tokenBlacklistModel
-} = require('../models');
+const { userModel, tokenBlacklistModel } = require('../models');
+
 
 function auth(redirectUnauthenticated = true) {
 

@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types;
 
-const adSchema = new mongoose.Schema({
-    adName: {
+const furnitureSchema = new mongoose.Schema({
+    img: {
+        type: String,
+        required: true
+    },
+    name: {
         type: String,
         required: true
     },
@@ -50,5 +54,4 @@ const adSchema = new mongoose.Schema({
     },
 }, { timestamps: { createdAt: 'created_at' } });
 
-const Ad = mongoose.model('Ad', adSchema);
-module.exports = { Ad };
+module.exports = mongoose.model('Furniture', furnitureSchema);

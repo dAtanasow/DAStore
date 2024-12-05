@@ -1,0 +1,18 @@
+@if(isLoading) {
+<app-loader />
+} @else {
+<div class="catalog-container">
+  <h2>Catalog</h2>
+  <div class="ad-list">
+    <div class="ad-item" *ngFor="let furniture of furniture">
+      <div class="ad-image">
+        <img [src]="furniture.img" alt="Ad Image" />
+      </div>
+      <div [routerLink]="'/catalog/' + furniture._id" class="ad-details">
+        <h3>{{ furniture.name }}</h3>
+        <p class="price">${{ furniture.price }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+}

@@ -101,22 +101,6 @@ function editProfileInfo(req, res, next) {
         .catch(next);
 }
 
-function getUserCart(req, res, next) {
-    const userId = req.params.id;
-
-    userModel.findById(userId)
-        .populate('cart')
-        .then((user) => {
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            res.status(200).json(user);
-        })
-        .catch((err) => {
-            next(err);
-        });
-}
-
 
 module.exports = {
     login,
@@ -124,5 +108,4 @@ module.exports = {
     logout,
     getProfileInfo,
     editProfileInfo,
-    getUserCart
 }
