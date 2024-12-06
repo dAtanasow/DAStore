@@ -21,7 +21,7 @@ export class ApiService {
   }
 
   createFurniture(
-    img:string,
+    img: string,
     name: string,
     price: number,
     dimensions: Dimensions,
@@ -30,12 +30,12 @@ export class ApiService {
     weight: number
   ) {
     const payload = { img, name, price, dimensions, color, material, weight };
-    return this.http.post<Furniture>(`/api/catalog`, payload);
+    return this.http.post<Furniture>(`/api/furniture/create`, payload);
   }
 
   updateFurniture(
     furnitureId: string,
-    img:string,
+    img: string,
     name: string,
     price: number,
     dimensions: Dimensions,

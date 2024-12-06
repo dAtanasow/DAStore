@@ -7,7 +7,7 @@ export interface Furniture {
   material: string;
   weight: number;
   _id: string;
-  userId: string;
+  authorId: string;
   created_at: string;
   updatedAt: string;
   __v: number;

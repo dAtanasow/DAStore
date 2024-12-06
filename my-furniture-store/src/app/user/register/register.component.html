@@ -48,6 +48,27 @@
       }
     </div>
     }
+
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input
+        type="text"
+        id="phone"
+        name="phone"
+        formControlName="phone"
+        [class]="isPhoneInvalid ? 'input-error' : ''"
+      />
+    </div>
+
+    <div>
+      @if(form.get('phone')?.touched && form.get('phone')?.errors?.['pattern'])
+      {
+      <p class="error-message">
+        Phone number have to starts with 0 and be 10 digits long.
+      </p>
+      }
+    </div>
+
     <div formGroupName="passGroup">
       <div class="form-group">
         <label for="password">Password:</label>

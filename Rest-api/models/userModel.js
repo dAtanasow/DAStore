@@ -7,30 +7,51 @@ const { ObjectId } = mongoose.Schema.Types;
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true,
+        required: [true, 'Username is required'],
         unique: true,
         minlength: [5, 'Username should be at least 5 characters'],
+        trim: true, 
         validate: {
             validator: function (v) {
-                return /^[a-zA-Z0-9]+$/g.test(v);
+                return /^[a-zA-Z0-9]+$/.test(v);
             },
-            message: props => `${props.value} must contains only latin letters and digits!`
+            message: props => `${props.value} must contain only Latin letters and digits!`
         },
     },
     email: {
         type: String,
-        required: true,
+        required: [true, 'Email is required'],
         unique: true,
+        trim: true,
+        validate: {
+            validator: function (v) {
+               
+                return /\S+@\S+\.\S+/.test(v);
+            },
+            message: props => `Invalid email format!`
+        },
+    },
+    phone: {
+        type: String,
+        required: false,
+        unique: true,
+        trim: true,
+        validate: {
+            validator: function (v) {
+                return /^0\d{9}$/.test(v); 
+            },
+            message: props => `Invalid phone format!`
+        },
     },
     password: {
         type: String,
-        required: true,
+        required: [true, 'Password is required'],
         minlength: [5, 'Password should be at least 5 characters'],
         validate: {
             validator: function (v) {
-                return /[a-zA-Z0-9]+/g.test(v);
+                return /[a-zA-Z0-9]+/.test(v);
             },
-            message: props => `${props.value} must contains only latin letters and digits!`
+            message: props => `${props.value} must contain only Latin letters and digits!`
         },
     },
     ads: [{
@@ -61,8 +82,8 @@ userSchema.pre('save', function (next) {
                 }
                 this.password = hash;
                 next();
-            })
-        })
+            });
+        });
         return;
     }
     next();

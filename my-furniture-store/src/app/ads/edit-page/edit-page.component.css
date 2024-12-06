@@ -1,4 +1,4 @@
-.create-ad-container {
+.update-ad-container {
   width: 600px;
   margin: 20px auto;
   padding: 20px;
@@ -47,7 +47,7 @@ button {
   width: 100%;
   max-width: 200px;
   padding: 10px;
-  background-color: #00b32a;
+  background-color: #28a745;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -57,11 +57,51 @@ button {
 }
 
 button:hover {
-  background-color: #28a745;
+  background-color: #218838;
 }
 
 .error-message {
   color: #d9534f;
   font-size: 14px;
   margin-top: 5px;
+}
+
+.confirm-button {
+  background-color: #00b32a;
+  border-radius: 4px;
+  padding: 10px 15px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.confirm-button:hover {
+  background-color: #28a745;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  border-radius: 4px;
+  padding: 10px 15px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
 }

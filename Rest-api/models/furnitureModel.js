@@ -18,22 +18,18 @@ const furnitureSchema = new mongoose.Schema({
         width: {
             type: Number,
             required: true,
-            min: 0,
         },
         length: {
             type: Number,
             required: true,
-            min: 0,
         },
         depth: {
             type: Number,
             required: true,
-            min: 0,
         },
         height: {
             type: Number,
             required: true,
-            min: 0,
         },
     },
     color: {
@@ -48,7 +44,7 @@ const furnitureSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    userId: {
+    authorId: {
         type: ObjectId,
         ref: "User"
     },

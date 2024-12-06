@@ -23,20 +23,27 @@ async function getById(req, res, next) {
 }
 
 async function create(req, res, next) {
+    console.log('Received body:', req.body);
+
     const { img, name, price, dimensions, color, material, weight } = req.body;
 
+    
     if (!dimensions || !dimensions.height || !dimensions.depth || !dimensions.length || !dimensions.width) {
+        console.log('Dimensions validation failed');
         return res.status(400).json({ message: 'All dimension fields are required!' });
     }
-    const { height, depth, length, width } = dimensions;
 
     try {
-        const newFurniture = await furnitureModel.create({ img, name, price, dimensions: { height, depth, length, width }, color, material, weight, userId: req.user._id });
+        const newFurniture = await furnitureModel.create({ 
+            img, name, price, dimensions, color, material, weight, userId: req.user._id 
+        });
         res.status(201).json(newFurniture);
     } catch (err) {
+        console.error('Error creating furniture:', err);
         next(err);
     }
 }
+
 async function update(req, res, next) {
     const { furnitureId } = req.params;
     const { img, name, price, dimensions, color, material, weight } = req.body;

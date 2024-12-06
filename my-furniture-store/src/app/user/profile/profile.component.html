@@ -1,0 +1,111 @@
+<div *ngIf="form">
+  <div class="profile-container">
+    <h2>Profile</h2>
+    <form [formGroup]="form" (ngSubmit)="submitProfile()">
+      <div class="profile-field">
+        <p><strong>Name:</strong></p>
+        <div *ngIf="!editing.username; else usernameEdit">
+          <p>{{ user.username }}</p>
+        </div>
+        <ng-template #usernameEdit>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              formControlName="username"
+              [class.input-error]="
+                form.get('username')?.invalid && form.get('username')?.touched
+              "
+            />
+            <!-- Validation messages -->
+            <div
+              *ngIf="
+                form.get('username')?.touched && form.get('username')?.invalid
+              "
+            >
+              <p
+                *ngIf="form.get('username')?.errors?.['required']"
+                class="error-message"
+              >
+                Username is required!
+              </p>
+              <p
+                *ngIf="form.get('username')?.errors?.['minlength']"
+                class="error-message"
+              >
+                Username must be at least 5 characters!
+              </p>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="profile-field">
+        <p><strong>Email:</strong></p>
+        <div *ngIf="!editing.email; else emailEdit">
+          <p>{{ user.email }}</p>
+        </div>
+        <ng-template #emailEdit>
+          <div class="input-wrapper">
+            <input
+              type="email"
+              formControlName="email"
+              [class.input-error]="
+                form.get('email')?.invalid && form.get('email')?.touched
+              "
+            />
+            <!-- Validation messages -->
+            <div
+              *ngIf="form.get('email')?.touched && form.get('email')?.invalid"
+            >
+              <p
+                *ngIf="form.get('email')?.errors?.['required']"
+                class="error-message"
+              >
+                Email is required!
+              </p>
+              <p
+                *ngIf="form.get('email')?.errors?.['emailValidator']"
+                class="error-message"
+              >
+                Email is not valid!
+              </p>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="profile-field">
+        <p><strong>Phone:</strong></p>
+        <div *ngIf="!editing.phone; else phoneEdit">
+          <p>{{ user.phone }}</p>
+        </div>
+        <ng-template #phoneEdit>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              formControlName="phone"
+              [class]="isPhoneInvalid ? 'input-error' : ''"
+            />
+            <!-- Validation messages -->
+            <div
+              *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid"
+            >
+              <p
+                *ngIf="form.get('phone')?.errors?.['pattern']"
+                class="error-message"
+              >
+                Phone number is not valid!
+              </p>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+
+      <button type="button" (click)="toggleEdit()">
+        {{
+          editing.username || editing.email || editing.phone ? "Submit" : "Edit"
+        }}
+      </button>
+    </form>
+  </div>
+</div>

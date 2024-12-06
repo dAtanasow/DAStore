@@ -25,7 +25,6 @@ export class RegisterComponent {
       Validators.minLength(5),
     ]),
     email: new FormControl('', [Validators.required, emailValidator(DOMAINS)]),
-    tel: new FormControl(),
     passGroup: new FormGroup(
       {
         password: new FormControl('', [
@@ -38,6 +37,10 @@ export class RegisterComponent {
         validators: [passValidator('password', 'rePassword')],
       }
     ),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^0\d{9}$/),
+    ]),
   });
 
   constructor(private userService: UserService, private router: Router) {}
@@ -63,6 +66,11 @@ export class RegisterComponent {
     );
   }
 
+  get isPhoneInvalid() {
+    const phoneControl = this.form.get('phone');
+    return phoneControl?.touched && phoneControl?.invalid;
+  }
+
   get passGroup() {
     return this.form.get('passGroup');
   }
@@ -75,14 +83,14 @@ export class RegisterComponent {
     const {
       username,
       email,
+      phone,
       passGroup: { password, rePassword } = {},
     } = this.form.value;
 
     this.userService
-      .register(username!, email!, password!, rePassword!)
+      .register(username!, email!, phone!, password!, rePassword!)
       .subscribe(() => {
         this.router.navigate(['/home']);
       });
   }
 }
-

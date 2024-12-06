@@ -9,22 +9,22 @@ const { authCookieName } = require('../app-config');
 const bsonToJson = (data) => { return JSON.parse(JSON.stringify(data)) };
 const removePassword = (data) => {
     const { password, __v, ...userData } = data;
-    return userData
+    return userData;
 }
 
 function register(req, res, next) {
-    const { email, username, password, repeatPassword } = req.body;
+    const { email, username, phone, password, repeatPassword } = req.body;
 
-    return userModel.create({ email, username, password })
+    return userModel.create({ email, username, phone, password })
         .then((createdUser) => {
             createdUser = bsonToJson(createdUser);
             createdUser = removePassword(createdUser);
 
             const token = utils.jwt.createToken({ id: createdUser._id });
             if (process.env.NODE_ENV === 'production') {
-                res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
+                res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true });
             } else {
-                res.cookie(authCookieName, token, { httpOnly: true })
+                res.cookie(authCookieName, token, { httpOnly: true });
             }
             res.status(200)
                 .send(createdUser);
@@ -54,7 +54,7 @@ function login(req, res, next) {
             if (!match) {
                 res.status(401)
                     .send({ message: 'Wrong email or password' });
-                return
+                return;
             }
             user = bsonToJson(user);
             user = removePassword(user);
@@ -62,9 +62,9 @@ function login(req, res, next) {
             const token = utils.jwt.createToken({ id: user._id });
 
             if (process.env.NODE_ENV === 'production') {
-                res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
+                res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true });
             } else {
-                res.cookie(authCookieName, token, { httpOnly: true })
+                res.cookie(authCookieName, token, { httpOnly: true });
             }
             res.status(200)
                 .send(user);
@@ -85,22 +85,47 @@ function logout(req, res) {
 }
 
 function getProfileInfo(req, res, next) {
+
     const { _id: userId } = req.user;
 
-    userModel.findOne({ _id: userId }, { password: 0, __v: 0 }) //finding by Id and returning without password and __v
-        .then(user => { res.status(200).json(user) })
-        .catch(next);
+    userModel.findOne({ _id: userId }, { password: 0, __v: 0 })
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            console.log('User found:', user);
+            res.status(200).json(user);
+        })
+        .catch(err => {
+            next(err);
+        });
 }
 
 function editProfileInfo(req, res, next) {
     const { _id: userId } = req.user;
-    const { username, email } = req.body;
+    const { username, email, phone } = req.body;
+    
+    const updateFields = {};
+    if (username) updateFields.username = username;
+    if (email) updateFields.email = email;
+    if (phone) updateFields.phone = phone;
 
-    userModel.findOneAndUpdate({ _id: userId }, { username, email }, { runValidators: true, new: true })
-        .then(x => { res.status(200).json(x) })
-        .catch(next);
+    userModel.findOneAndUpdate(
+        { _id: userId },
+        { $set: updateFields },
+        { runValidators: true, new: true }
+    )
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            res.status(200).json(user);
+        })
+        .catch(err => {
+            console.error('Update error:', err);
+            res.status(400).json({ error: err.message });
+        });
 }
-
 
 module.exports = {
     login,
@@ -108,4 +133,4 @@ module.exports = {
     logout,
     getProfileInfo,
     editProfileInfo,
-}
+};

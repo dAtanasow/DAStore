@@ -18,8 +18,11 @@ dbConnector()
       origin: config.origin,
       credentials: true
     }));
+
+
     app.use('/api', apiRouter);
-    
+  
+
 
     app.use(errorHandler);
 

@@ -1,187 +1,191 @@
 <div class="create-ad-container">
-  <h2>Create Ad</h2>
+  <h2>NEW FURNITURE</h2>
   <form #form="ngForm" (ngSubmit)="createAd(form)">
     <div class="form-section">
-      <div class="form-group">
-        <label for="img">Image URL:</label>
-        <input
-          type="url"
-          id="img"
-          name="img"
-          ngModel
-          #inputImageUrl="ngModel"
-          required
-        />
-        <div
-          *ngIf="inputImageUrl.touched && inputImageUrl.invalid"
-          class="error-message"
-        >
-          Please enter a valid image URL.
+      <!-- Left Column -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            ngModel
+            #inputName="ngModel"
+            required
+            minlength="3"
+          />
+          <div
+            *ngIf="inputName.touched && inputName.invalid"
+            class="error-message"
+          >
+            Name is required and must be at least 3 characters.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            ngModel
+            #inputPrice="ngModel"
+            required
+            min="1"
+            max="99999"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="color">Color:</label>
+          <input
+            type="text"
+            id="color"
+            name="color"
+            ngModel
+            #inputColor="ngModel"
+            required
+          />
+          <div
+            *ngIf="inputColor.touched && inputColor.invalid"
+            class="error-message"
+          >
+            Color is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="material">Material:</label>
+          <input
+            type="text"
+            id="material"
+            name="material"
+            ngModel
+            #inputMaterial="ngModel"
+            required
+          />
+          <div
+            *ngIf="inputMaterial.touched && inputMaterial.invalid"
+            class="error-message"
+          >
+            Material is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="img">Image URL:</label>
+          <input
+            type="url"
+            id="img"
+            name="img"
+            ngModel
+            #inputImageUrl="ngModel"
+            required
+          />
+          <div
+            *ngIf="inputImageUrl.touched && inputImageUrl.invalid"
+            class="error-message"
+          >
+            Please enter a valid image URL.
+          </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="name">Ad Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          ngModel
-          #inputName="ngModel"
-          required
-          minlength="3"
-        />
-        <div
-          *ngIf="inputName.touched && inputName.invalid"
-          class="error-message"
-        >
-          Name is required and must be at least 3 characters.
+      <!-- Right Column -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="weight">Weight:</label>
+          <input
+            type="number"
+            id="weight"
+            name="weight"
+            ngModel
+            #inputWeight="ngModel"
+            required
+          />
+          <div
+            *ngIf="inputWeight.touched && inputWeight.invalid"
+            class="error-message"
+          >
+            Weight must be a positive number.
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="price">Price:</label>
-        <input
-          type="number"
-          id="price"
-          name="price"
-          ngModel
-          #inputPrice="ngModel"
-          required
-          min="1"
-          max="99999"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="width">Width:</label>
-        <input
-          type="number"
-          id="width"
-          name="width"
-          ngModel
-          #inputWidth="ngModel"
-          required
-          min="0"
-        />
-        <div
-          *ngIf="inputWidth.touched && inputWidth.invalid"
-          class="error-message"
-        >
-          Width is required.
+        <div class="form-group">
+          <label for="width">Width:</label>
+          <input
+            type="number"
+            id="width"
+            name="width"
+            ngModel
+            #inputWidth="ngModel"
+            required
+            min="0"
+          />
+          <div
+            *ngIf="inputWidth.touched && inputWidth.invalid"
+            class="error-message"
+          >
+            Width is required.
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="length">Length:</label>
-        <input
-          type="number"
-          id="length"
-          name="length"
-          ngModel
-          #inputLength="ngModel"
-          required
-          min="0"
-        />
-        <div
-          *ngIf="inputLength.touched && inputLength.invalid"
-          class="error-message"
-        >
-          Length is required.
+        <div class="form-group">
+          <label for="length">Length:</label>
+          <input
+            type="number"
+            id="length"
+            name="length"
+            ngModel
+            #inputLength="ngModel"
+            required
+            min="0"
+          />
+          <div
+            *ngIf="inputLength.touched && inputLength.invalid"
+            class="error-message"
+          >
+            Length is required.
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="depth">Depth:</label>
-        <input
-          type="number"
-          id="depth"
-          name="depth"
-          ngModel
-          #inputDepth="ngModel"
-          required
-          min="0"
-        />
-        <div
-          *ngIf="inputDepth.touched && inputDepth.invalid"
-          class="error-message"
-        >
-          Depth is required.
+        <div class="form-group">
+          <label for="depth">Depth:</label>
+          <input
+            type="number"
+            id="depth"
+            name="depth"
+            ngModel
+            #inputDepth="ngModel"
+            required
+            min="0"
+          />
+          <div
+            *ngIf="inputDepth.touched && inputDepth.invalid"
+            class="error-message"
+          >
+            Depth is required.
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="height">Height:</label>
-        <input
-          type="number"
-          id="height"
-          name="height"
-          ngModel
-          #inputHeight="ngModel"
-          required
-          min="0"
-        />
-        <div
-          *ngIf="inputHeight.touched && inputHeight.invalid"
-          class="error-message"
-        >
-          Height is required.
-        </div>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <div class="form-group">
-        <label for="color">Color:</label>
-        <input
-          type="text"
-          id="color"
-          name="color"
-          ngModel
-          #inputColor="ngModel"
-          required
-        />
-        <div
-          *ngIf="inputColor.touched && inputColor.invalid"
-          class="error-message"
-        >
-          Color is required.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="material">Material:</label>
-        <input
-          type="text"
-          id="material"
-          name="material"
-          ngModel
-          #inputMaterial="ngModel"
-          required
-        />
-        <div
-          *ngIf="inputMaterial.touched && inputMaterial.invalid"
-          class="error-message"
-        >
-          Material is required.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="weight">Weight:</label>
-        <input
-          type="number"
-          id="weight"
-          name="weight"
-          ngModel
-          #inputWeight="ngModel"
-          required
-        />
-        <div
-          *ngIf="inputWeight.touched && inputWeight.invalid"
-          class="error-message"
-        >
-          Weight must be a positive number.
+        <div class="form-group">
+          <label for="height">Height:</label>
+          <input
+            type="number"
+            id="height"
+            name="height"
+            ngModel
+            #inputHeight="ngModel"
+            required
+            min="0"
+          />
+          <div
+            *ngIf="inputHeight.touched && inputHeight.invalid"
+            class="error-message"
+          >
+            Height is required.
+          </div>
         </div>
       </div>
     </div>

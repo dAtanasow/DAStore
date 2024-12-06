@@ -22,14 +22,18 @@ export class UserService {
     });
   }
   login(email: string, password: string) {
-    return this.http
-      .post<UserForAuth>('/api/login', { email, password })
-      .pipe(tap((user) => this.user$$.next(user)));
+    return this.http.post<UserForAuth>('/api/login', { email, password }).pipe(
+      tap((user) => {
+        localStorage.setItem('userId', user._id);
+        this.user$$.next(user);
+      })
+    );
   }
 
   register(
     username: string,
     email: string,
+    phone: string,
     password: string,
     rePassword: string
   ) {
@@ -37,27 +41,40 @@ export class UserService {
       .post<UserForAuth>('/api/register', {
         username,
         email,
+        phone,
         password,
         rePassword,
       })
-      .pipe(tap((user) => this.user$$.next(user)));
+      .pipe(
+        tap((user) => {
+          localStorage.setItem('userId', user._id);
+          this.user$$.next(user);
+        })
+      );
   }
 
   logout() {
-    return this.http
-      .post('/api/logout', {})
-      .pipe(tap((user) => this.user$$.next(null)));
+    return this.http.post('/api/logout', {}).pipe(
+      tap(() => {
+        localStorage.removeItem('userId');
+        this.user$$.next(null);
+      })
+    );
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
   }
 
   getProfile() {
     return this.http
-      .get<UserForAuth>('/api/users/profile')
+      .get<UserForAuth>('/api/profile')
       .pipe(tap((user) => this.user$$.next(user)));
   }
 
-  updateProfile(username: string, email: string) {
+  updateProfile(data: { username?: string; email?: string; phone?: string }) {
     return this.http
-      .put<UserForAuth>(`/api/users/profile`, { username, email })
+      .put<UserForAuth>(`/api/profile`, { data })
       .pipe(tap((user) => this.user$$.next(user)));
   }
 }

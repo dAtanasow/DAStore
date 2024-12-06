@@ -1,0 +1,93 @@
+.profile-container {
+  width: 400px;
+  min-height: 300px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fbf9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+h2 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 100%;
+  justify-content: flex-start; /* Оставя имената и полетата подравнени */
+}
+
+.profile-field p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  width: 30%; /* Ширина за текста */
+  text-align: left;
+}
+
+.input-wrapper {
+  width: 70%; /* Ширина за полето за въвеждане */
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-field input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: normal;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+button {
+  width: 100%;
+  max-width: 200px;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: 30px auto 0;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow-wrap: break-word;
+  text-align: left;
+}
+
+.input-error {
+  border-color: red;
+}
