@@ -9,6 +9,7 @@ router.post('/logout', authController.logout);
 
 router.get('/ads', auth(), authController.getUserAds);
 router.get('/profile', auth(), authController.getProfileInfo);
+router.get('/profile/:id', auth(), authController.getUserById);
 router.put('/profile', auth(), authController.editProfileInfo);
 
 router.get('/cart', auth(), authController.getCartItems);

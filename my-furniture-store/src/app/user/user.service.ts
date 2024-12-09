@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UserForAuth } from '../types/user';
+import { UserForAuth, UserProfile } from '../types/user';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Furniture } from '../types/furniture';
 
 @Injectable({
@@ -69,29 +69,42 @@ export class UserService {
     return localStorage.getItem('userId');
   }
 
-  getMyFurniture() {
+  getMyFurniture(): Observable<Furniture[]> {
     return this.http.get<Furniture[]>(`/api/users/ads`);
   }
 
-  getCartItems() {
+  getCartItems(): Observable<Furniture[]> {
     return this.http.get<Furniture[]>(`/api/users/cart`);
   }
 
-  addToCart(itemId: string) {
+  addToCart(itemId: string): Observable<Furniture> {
     return this.http.post<Furniture>(`/api/users/cart`, { itemId });
   }
 
   removeFromCart(itemId: string) {
-    return this.http.delete(`/api/users/cart/${itemId}`)
+    return this.http.delete(`/api/users/cart/${itemId}`);
   }
 
-  getProfile() {
+  getAuthorById(authorId: string): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`/api/users/${authorId}`);
+  }
+
+  getProfile(): Observable<UserProfile> {
     return this.http
       .get<UserForAuth>('/api/users/profile')
       .pipe(tap((user) => this.user$$.next(user)));
   }
 
-  updateProfile(data: { username?: string; email?: string; phone?: string }) {
+  getProfileById(userId: string): Observable<UserProfile> {
+    return this.http
+      .get<UserForAuth>(`/api/users/profile/${userId}`)
+  }
+
+  updateProfile(data: {
+    username?: string;
+    email?: string;
+    phone?: string;
+  }): Observable<UserProfile> {
     return this.http
       .put<UserForAuth>(`/api//users/profile`, { data })
       .pipe(tap((user) => this.user$$.next(user)));

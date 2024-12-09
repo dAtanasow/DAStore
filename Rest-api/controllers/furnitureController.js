@@ -53,6 +53,7 @@ async function create(req, res, next) {
         next(err);
     }
 }
+
 async function update(req, res, next) {
     const { img, furnitureId, name, price, dimensions, color, material, weight } = req.body;
     const { _id: userId } = req.user;
@@ -89,7 +90,7 @@ async function deleteById(req, res, next) {
     try {
         const deletedFurniture = await furnitureModel.findOneAndDelete({
             _id: furnitureId,
-            authorId: userId, 
+            authorId: userId,
         });
 
         if (!deletedFurniture) {

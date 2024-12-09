@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Furniture, Dimensions } from './types/furniture';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { Furniture, Dimensions } from './types/furniture';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getFurniture(limit?: number) {
+  getFurniture(limit?: number): Observable<Furniture[]> {
     let url = `/api/catalog`;
     if (limit) {
       url += `?limit=${limit}`;
@@ -16,7 +17,7 @@ export class ApiService {
     return this.http.get<Furniture[]>(url);
   }
 
-  getSingleFurniture(id: string) {
+  getSingleFurniture(id: string): Observable<Furniture> {
     return this.http.get<Furniture>(`/api/catalog/${id}`);
   }
 
@@ -28,7 +29,7 @@ export class ApiService {
     color: string,
     material: string,
     weight: number
-  ) {
+  ): Observable<Furniture> {
     const payload = { img, name, price, dimensions, color, material, weight };
     return this.http.post<Furniture>(`/api/furniture/create`, payload);
   }
@@ -42,7 +43,7 @@ export class ApiService {
     color: string,
     material: string,
     weight: number
-  ) {
+  ): Observable<Furniture> {
     const payload = {
       furnitureId,
       img,

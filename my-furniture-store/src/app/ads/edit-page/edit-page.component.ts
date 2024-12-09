@@ -14,7 +14,7 @@ import { NgIf } from '@angular/common';
 })
 export class EditComponent {
   furniture: Furniture | null = null;
-  
+
   isLoading = true;
 
   constructor(
@@ -52,5 +52,11 @@ export class EditComponent {
     }
   }
 
-  cancel(){}
+  cancel(): void {
+    if (
+      confirm('Are you sure you want to cancel? Unsaved changes will be lost.')
+    ) {
+      this.router.navigate(['/catalog']);
+    }
+  }
 }

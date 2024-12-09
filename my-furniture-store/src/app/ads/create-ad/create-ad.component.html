@@ -35,6 +35,13 @@
             min="1"
             max="99999"
           />
+
+          <div
+            *ngIf="inputPrice.touched && inputPrice.invalid"
+            class="error-message"
+          >
+            Price is required and must be between 1 and 99999
+          </div>
         </div>
 
         <div class="form-group">
@@ -103,12 +110,14 @@
             ngModel
             #inputWeight="ngModel"
             required
+            min="1"
+
           />
           <div
             *ngIf="inputWeight.touched && inputWeight.invalid"
             class="error-message"
           >
-            Weight must be a positive number.
+            Weight is required and must be a bigger than 0.
           </div>
         </div>
 
@@ -121,13 +130,14 @@
             ngModel
             #inputWidth="ngModel"
             required
-        
+            min="1"
+
           />
           <div
             *ngIf="inputWidth.touched && inputWidth.invalid"
             class="error-message"
           >
-            Width is required.
+            Width is required and must be a bigger than 0.
           </div>
         </div>
 
@@ -140,13 +150,12 @@
             ngModel
             #inputLength="ngModel"
             required
-            
           />
           <div
             *ngIf="inputLength.touched && inputLength.invalid"
             class="error-message"
           >
-            Length is required.
+            Length is required and must be a bigger than 0.
           </div>
         </div>
 
@@ -159,13 +168,14 @@
             ngModel
             #inputDepth="ngModel"
             required
-           
+            min="1"
+
           />
           <div
             *ngIf="inputDepth.touched && inputDepth.invalid"
             class="error-message"
           >
-            Depth is required.
+            Depth is required and must be a bigger than 0.
           </div>
         </div>
 
@@ -178,13 +188,13 @@
             ngModel
             #inputHeight="ngModel"
             required
-           
+            min="1"
           />
           <div
             *ngIf="inputHeight.touched && inputHeight.invalid"
             class="error-message"
           >
-            Height is required.
+            Height is required and must be a bigger than 0.
           </div>
         </div>
       </div>

@@ -36,6 +36,13 @@
               min="1"
               max="99999"
             />
+
+            <div
+              *ngIf="inputPrice.touched && inputPrice.invalid"
+              class="error-message"
+            >
+              Price is required and must be between 1 and 99999
+            </div>
           </div>
 
           <div class="form-group">
@@ -104,12 +111,13 @@
               [(ngModel)]="furniture.weight"
               #inputWeight="ngModel"
               required
+              min="1"
             />
             <div
               *ngIf="inputWeight.touched && inputWeight.invalid"
               class="error-message"
             >
-              Weight must be a positive number.
+              Weight is required and must be a bigger than 0.
             </div>
           </div>
 
@@ -122,13 +130,13 @@
               [(ngModel)]="furniture.dimensions.width"
               #inputWidth="ngModel"
               required
-              min="0"
+              min="1"
             />
             <div
               *ngIf="inputWidth.touched && inputWidth.invalid"
               class="error-message"
             >
-              Width is required.
+              Width is required and must be a bigger than 0.
             </div>
           </div>
 
@@ -141,13 +149,13 @@
               [(ngModel)]="furniture.dimensions.length"
               #inputLength="ngModel"
               required
-              min="0"
+              min="1"
             />
             <div
               *ngIf="inputLength.touched && inputLength.invalid"
               class="error-message"
             >
-              Length is required.
+              Length is required and must be a bigger than 0.
             </div>
           </div>
 
@@ -160,13 +168,13 @@
               [(ngModel)]="furniture.dimensions.depth"
               #inputDepth="ngModel"
               required
-              min="0"
+              min="1"
             />
             <div
               *ngIf="inputDepth.touched && inputDepth.invalid"
               class="error-message"
             >
-              Depth is required.
+              Depth is required and must be a bigger than 0.
             </div>
           </div>
 
@@ -179,21 +187,25 @@
               [(ngModel)]="furniture.dimensions.height"
               #inputHeight="ngModel"
               required
-              min="0"
+              min="1"
             />
             <div
               *ngIf="inputHeight.touched && inputHeight.invalid"
               class="error-message"
             >
-              Height is required.
+              Height is required and must be a bigger than 0.
             </div>
           </div>
         </div>
       </div>
 
       <div class="button-group">
-        <button type="submit" class="confirm-button" [disabled]="form.invalid">Confirm</button>
-        <button type="button" class="cancel-button" (click)="cancel()">Cancel</button>
+        <button type="submit" class="confirm-button" [disabled]="form.invalid">
+          Confirm
+        </button>
+        <button type="button" class="cancel-button" (click)="cancel()">
+          Cancel
+        </button>
       </div>
     </form>
   </div>

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../api.service';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { UserService } from '../../user/user.service';
+import { UserProfile } from '../../types/user';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-furniture-details',
@@ -16,6 +18,7 @@ export class DetailsComponent implements OnInit {
   isLoading = true;
   furniture: Furniture | null = null;
   currentUser: string | null = null;
+  author: UserProfile | null = null;
   cartItems: Furniture[] = [];
   isAuthor = false;
   isItemInCart = false;
@@ -30,21 +33,26 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.userService.getUserId();
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.apiService.getSingleFurniture(id).subscribe((data) => {
-        this.furniture = data;
-        this.isLoading = false;
-        if (this.furniture && this.currentUser) {
-          this.isAuthor = this.furniture.authorId === this.currentUser;
-        }
-      });
 
-      this.userService.getCartItems().subscribe((cartItems) => {
-        if (this.furniture) {
-          this.isItemInCart = cartItems.some(
-            (item) => item._id === this.furniture!._id
-          );
+    if (id) {
+      forkJoin({
+        furniture: this.apiService.getSingleFurniture(id),
+        cartItems: this.userService.getCartItems(),
+      }).subscribe(({ furniture, cartItems }) => {
+        this.furniture = furniture;
+        this.isAuthor = furniture.authorId === this.currentUser;
+        this.isItemInCart = cartItems.some(
+          (item) => item._id === furniture._id
+        );
+
+        if (this.furniture.authorId) {
+          this.userService
+            .getProfileById(this.furniture.authorId)
+            .subscribe((author) => {
+              this.author = author;
+            });
         }
+        this.isLoading = false;
       });
     }
   }

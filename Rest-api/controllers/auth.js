@@ -84,6 +84,19 @@ function logout(req, res) {
         .catch(err => res.send(err));
 }
 
+function getUserById(req, res, next) {
+    const userId = req.params.id;
+
+    userModel.findById(userId)
+        .then((user) => {
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            res.status(200).json(user);
+        })
+        .catch((err) => next(err));
+}
+
 function getProfileInfo(req, res, next) {
 
     const { _id: userId } = req.user;
@@ -234,10 +247,11 @@ module.exports = {
     login,
     register,
     logout,
+    getUserById,
     getProfileInfo,
     editProfileInfo,
     getUserAds,
     addToCart,
     getCartItems,
-    removeFromCart
+    removeFromCart,
 };
