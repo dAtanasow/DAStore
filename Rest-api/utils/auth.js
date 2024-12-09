@@ -12,6 +12,7 @@ function auth(redirectUnauthenticated = true) {
             tokenBlacklistModel.findOne({ token })
         ])
             .then(([data, blacklistedToken]) => {
+                console.log('Verified token data:', data);
                 if (blacklistedToken) {
                     return Promise.reject(new Error('blacklisted token'));
                 }

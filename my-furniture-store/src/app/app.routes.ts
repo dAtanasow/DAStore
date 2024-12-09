@@ -9,6 +9,8 @@ import { CatalogComponent } from './ads/catalog/catalog.component';
 import { DetailsComponent } from './ads/details/details.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { EditComponent } from './ads/edit-page/edit-page.component';
+import { MyFurnitureComponent } from './ads/my-furniture/my-furniture.component';
+import { CartComponent } from './user/cart/cart.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,6 +18,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'my-furniture', component: MyFurnitureComponent },
   { path: 'create', component: CreateAdComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: 'catalog/:id', component: DetailsComponent },

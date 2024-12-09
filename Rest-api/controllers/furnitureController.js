@@ -1,4 +1,5 @@
-const { furnitureModel } = require('../models');
+const { furnitureModel, userModel } = require('../models');
+
 
 async function getAll(req, res, next) {
     furnitureModel.find()
@@ -23,59 +24,72 @@ async function getById(req, res, next) {
 }
 
 async function create(req, res, next) {
-    console.log('Received body:', req.body);
 
     const { img, name, price, dimensions, color, material, weight } = req.body;
 
-    
-    if (!dimensions || !dimensions.height || !dimensions.depth || !dimensions.length || !dimensions.width) {
+    if (!dimensions || Object.values(dimensions).some(value => value === 0)) {
         console.log('Dimensions validation failed');
-        return res.status(400).json({ message: 'All dimension fields are required!' });
+        return res.status(400).json({ message: 'All dimension fields must be provided and cannot be zero!' });
     }
 
     try {
-        const newFurniture = await furnitureModel.create({ 
-            img, name, price, dimensions, color, material, weight, userId: req.user._id 
+        const newFurniture = await furnitureModel.create({
+            img, name, price, dimensions, color, material, weight, authorId: req.user._id
         });
-        res.status(201).json(newFurniture);
+
+        const updatedUser = await userModel.findById(req.user._id);
+
+        if (updatedUser) {
+            updatedUser.ads.push(newFurniture._id);
+            await updatedUser.save();
+
+            res.status(201).json(newFurniture);
+        } else {
+            console.log('User not found');
+            return res.status(404).json({ message: "User not found" });
+        }
     } catch (err) {
         console.error('Error creating furniture:', err);
         next(err);
     }
 }
-
 async function update(req, res, next) {
-    const { furnitureId } = req.params;
-    const { img, name, price, dimensions, color, material, weight } = req.body;
+    const { img, furnitureId, name, price, dimensions, color, material, weight } = req.body;
     const { _id: userId } = req.user;
 
     try {
 
+        if (!furnitureId || !userId) {
+            return res.status(400).json({ message: 'Invalid request data.' });
+        }
+
         const updatedFurniture = await furnitureModel.findOneAndUpdate(
-            { _id: furnitureId, userId },
-            { img, name, price, dimensions, color, material, weight },
+            { _id: furnitureId, authorId: userId },
+            { img, name, price, dimensions, color, material, weight }
         );
 
         if (!updatedFurniture) {
-            return res.status(404).json({ message: "Furniture not found or you don't have permission to update it." });
+            return res.status(404).json({
+                message: "Furniture not found or you don't have permission to update it.",
+            });
         }
 
         res.status(200).json(updatedFurniture);
     } catch (err) {
+        console.error('Update Error:', err);
         next(err);
     }
 }
 
 
 async function deleteById(req, res, next) {
-    const { furnitureId } = req.params;
-    const { _id: userId } = req.user;
+    const userId = req.user._id;
+    const furnitureId = req.params.furnitureId;
 
     try {
-
         const deletedFurniture = await furnitureModel.findOneAndDelete({
             _id: furnitureId,
-            userId,
+            authorId: userId, 
         });
 
         if (!deletedFurniture) {
@@ -84,49 +98,16 @@ async function deleteById(req, res, next) {
 
         res.status(200).json({ message: "Furniture deleted successfully!" });
     } catch (err) {
-        next(err);
-    }
-}
-async function getUserCart(req, res, next) {
-    const { _id: userId } = req.user;
-
-    try {
-        const cartItems = await furnitureModel.find({ cartUserIds: userId });
-        res.status(200).json(cartItems);
-    } catch (err) {
+        console.error('Error deleting furniture:', err);
         next(err);
     }
 }
 
-async function addToCart(req, res, next) {
-    const { furnitureId } = req.body;
-    const { _id: userId } = req.user;
 
-    try {
-        const furniture = await furnitureModel.findById(furnitureId);
-
-        if (!furniture) {
-            return res.status(404).json({ message: "Furniture not found." });
-        }
-
-        if (furniture.cartUserIds.includes(userId)) {
-            return res.status(400).json({ message: "Furniture already in cart." });
-        }
-
-        furniture.cartUserIds.push(userId);
-        await furniture.save();
-
-        res.status(200).json({ message: "Furniture added to cart successfully!" });
-    } catch (err) {
-        next(err);
-    }
-}
 module.exports = {
     getAll,
     getById,
     create,
     update,
-    deleteById,
-    addToCart,
-    getUserCart
+    deleteById
 }

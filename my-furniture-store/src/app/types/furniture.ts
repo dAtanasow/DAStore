@@ -19,13 +19,3 @@ export interface Dimensions {
   depth: number;
   height: number;
 }
-
-export interface CreateAd {
-  img: string;
-  name: string;
-  price: number;
-  dimensions: Dimensions;
-  color: string;
-  material: string;
-  weight: number;
-}

@@ -5,12 +5,13 @@
       <li><a routerLink="/home">Home</a></li>
       <li><a routerLink="/catalog">Catalog</a></li>
       @if(isLoggedIn) {
-      <li><a routerLink="/my-ads">My furniture</a></li>
+      <li><a routerLink="/my-furniture">My furniture</a></li>
       <li><a routerLink="/create">Add New</a></li>
       }
     </ul>
     <div class="auth-buttons">
       @if(isLoggedIn) {
+      <a routerLink="/cart">Cart</a>
       <a routerLink="/profile">Profile</a>
       <a (click)="logout()">Logout</a>
       } @else{

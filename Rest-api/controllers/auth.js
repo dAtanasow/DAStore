@@ -93,7 +93,6 @@ function getProfileInfo(req, res, next) {
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            console.log('User found:', user);
             res.status(200).json(user);
         })
         .catch(err => {
@@ -104,7 +103,7 @@ function getProfileInfo(req, res, next) {
 function editProfileInfo(req, res, next) {
     const { _id: userId } = req.user;
     const { username, email, phone } = req.body;
-    
+
     const updateFields = {};
     if (username) updateFields.username = username;
     if (email) updateFields.email = email;
@@ -127,10 +126,118 @@ function editProfileInfo(req, res, next) {
         });
 }
 
+function getUserAds(req, res, next) {
+    const userId = req.user._id;
+
+    userModel.findById(userId)
+        .populate('ads')
+        .then(user => {
+
+            if (!user) {
+                console.log('User not found');
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+
+            if (!user.ads || user.ads.length === 0) {
+                console.log('No ads found for the user');
+                return res.status(200).json([]);
+            }
+            res.status(200).json(user.ads);
+        })
+        .catch(err => {
+            console.error('Error fetching user ads:', err);
+            next(err);
+        });
+}
+
+function getCartItems(req, res, next) {
+    const userId = req.user._id;
+
+    userModel.findById(userId)
+        .populate({
+            path: 'cart',
+            populate: {
+                path: 'furnitureId',
+                model: 'Furniture'
+            }
+        })
+        .then(user => {
+            if (!user) {
+                console.log('User not found');
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            if (!user.cart || user.cart.length === 0) {
+                console.log('No items found in the cart');
+                return res.status(200).json([]);
+            }
+
+            res.status(200).json(user.cart);
+        })
+        .catch(err => {
+            console.error('Error fetching cart items:', err);
+            next(err);
+        });
+}
+
+function addToCart(req, res, next) {
+    const userId = req.user._id;
+    const { itemId } = req.body;
+
+    userModel.findById(userId)
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            if (!user.cart.includes(itemId)) {
+                user.cart.push(itemId);
+                return user.save();
+            } else {
+                return res.status(400).json({ message: 'Item already in cart' });
+            }
+        })
+        .then(() => {
+            res.status(200).json({ message: 'Item added to cart successfully' });
+        })
+        .catch(err => {
+            console.error('Error adding item to cart:', err);
+            res.status(500).json({ message: 'Server error' });
+        });
+}
+
+function removeFromCart(req, res, next) {
+    const userId = req.user._id;
+    const itemId = req.params.itemId;
+
+    userModel.findById(userId)
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            user.cart = user.cart.filter(id => id.toString() !== itemId);
+
+            return user.save();
+        })
+        .then(() => {
+            res.status(200).json({ message: 'Item removed successfully' });
+        })
+        .catch(err => {
+            console.error('Error removing item from cart:', err);
+            next(err);
+        });
+}
+
 module.exports = {
     login,
     register,
     logout,
     getProfileInfo,
     editProfileInfo,
+    getUserAds,
+    addToCart,
+    getCartItems,
+    removeFromCart
 };

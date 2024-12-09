@@ -22,14 +22,20 @@
         <p>Height: {{ furniture?.dimensions?.height }} cm</p>
       </div>
 
-      @if(currentUser === furniture?.authorId) {
+      @if(furniture) { @if(currentUser === furniture.authorId) {
       <div class="action-buttons">
         <button class="edit-button" (click)="editProduct()">Edit</button>
         <button class="delete-button" (click)="deleteProduct()">Delete</button>
       </div>
       } @else {
-      <button class="add-to-cart">Add to Cart</button>
-      }
+      <button
+        class="add-to-cart"
+        [disabled]="isItemInCart"
+        (click)="addToCart(furniture._id)"
+      >
+        Add to Cart
+      </button>
+      } }
     </div>
   </div>
 </div>

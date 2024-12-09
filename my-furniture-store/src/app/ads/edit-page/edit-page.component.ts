@@ -27,7 +27,6 @@ export class EditComponent {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.apiService.getSingleFurniture(id).subscribe((data) => {
-        console.log('Loaded furniture:', data); 
         this.furniture = data;
         this.isLoading = false;
       });
@@ -48,7 +47,7 @@ export class EditComponent {
           this.furniture.weight
         )
         .subscribe(() => {
-          this.router.navigate(['/details', this.furniture?._id]);
+          this.router.navigate(['/catalog', this.furniture?._id]);
         });
     }
   }

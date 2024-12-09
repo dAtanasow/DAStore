@@ -4,7 +4,7 @@ const users = require('./users');
 const catalog = require('./catalog');
 const create = require('./create');
 
-router.use(users);
+router.use('/users', users);
 router.use('/furniture', create);
 router.use('/catalog', catalog);
 

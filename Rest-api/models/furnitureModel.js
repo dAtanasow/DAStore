@@ -18,18 +18,22 @@ const furnitureSchema = new mongoose.Schema({
         width: {
             type: Number,
             required: true,
+            default: 0
         },
         length: {
             type: Number,
             required: true,
+            default: 0
         },
         depth: {
             type: Number,
             required: true,
+            default: 0
         },
         height: {
             type: Number,
             required: true,
+            default: 0
         },
     },
     color: {
@@ -42,7 +46,8 @@ const furnitureSchema = new mongoose.Schema({
     },
     weight: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     authorId: {
         type: ObjectId,

@@ -57,6 +57,6 @@ export class ApiService {
   }
 
   deleteAd(furnitureId: string) {
-    return this.http.delete(`api/catalog/${furnitureId}`);
+    return this.http.delete(`/api/catalog/${furnitureId}`);
   }
 }

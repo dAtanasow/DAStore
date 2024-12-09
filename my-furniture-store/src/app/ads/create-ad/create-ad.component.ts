@@ -16,10 +16,8 @@ export class CreateAdComponent {
 
   createAd(form: NgForm) {
     if (form.invalid) {
-      console.log('form is invalid!');
       return;
     }
-    console.log('Form value:', form.value);
 
     const {
       img,
