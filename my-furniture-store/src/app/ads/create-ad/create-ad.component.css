@@ -20,11 +20,12 @@ h2 {
 }
 
 .form-column {
-  width: 48%;
+  flex: 1;
+  padding: 10px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   align-items: flex-start;
   flex-direction: column;
   display: flex;

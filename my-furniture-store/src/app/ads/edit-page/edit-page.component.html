@@ -52,17 +52,22 @@
               id="category"
               name="category"
               [(ngModel)]="furniture.category"
-              ngModel
               #inputCategory="ngModel"
               required
+              (ngModelChange)="validateCategory(inputCategory)"
             />
             <div
               *ngIf="inputCategory.touched && inputCategory.invalid"
               class="error-message"
             >
-              Category is must to be chair, table, bed, wardrobe, bedside table,
-              dresser, tv stand, display cabinet, corner sofa, sofa, coffee
-              table, hocker, pouf or hanger.
+              <div *ngIf="inputCategory.errors?.['required']">
+                Category is required.
+              </div>
+              <div *ngIf="inputCategory.errors?.['invalidCategory']">
+                Category must be one of the following: chair, table, bed,
+                wardrobe, bedside table, dresser, tv stand, display cabinet,
+                corner sofa, sofa, coffee table, hocker, pouf, hanger.
+              </div>
             </div>
           </div>
 
@@ -110,13 +115,20 @@
               name="img"
               [(ngModel)]="furniture.img"
               #inputImageUrl="ngModel"
+              [pattern]="imagePattern"
               required
             />
             <div
               *ngIf="inputImageUrl.touched && inputImageUrl.invalid"
               class="error-message"
             >
-              Please enter a valid image URL.
+              <div *ngIf="inputImageUrl.errors?.['required']">
+                Image URL is required.
+              </div>
+              <div *ngIf="inputImageUrl.errors?.['pattern']">
+                Please enter a valid image URL ending with .jpg, .jpeg, .png,
+                .gif, or .webp.
+              </div>
             </div>
           </div>
         </div>

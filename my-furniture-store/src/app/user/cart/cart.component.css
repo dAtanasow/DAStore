@@ -1,7 +1,7 @@
 .cart-container {
   width: 100%;
   min-width: 600px;
-  margin: auto;
+  margin: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;

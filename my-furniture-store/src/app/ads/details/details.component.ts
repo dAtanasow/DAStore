@@ -10,7 +10,7 @@ import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-furniture-details',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [],
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })

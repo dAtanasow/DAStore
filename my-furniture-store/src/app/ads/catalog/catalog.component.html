@@ -111,16 +111,24 @@
 <div *ngIf="!isLoading && !noItemsMessage" class="catalog-container">
   <h3>Catalog</h3>
   <div class="ad-list">
-    <div class="ad-item" *ngFor="let furniture of furniture">
-      <div [routerLink]="'/catalog/details/' + furniture._id">
+    <div class="ad-item" *ngFor="let item of paginatedFurniture">
+      <div [routerLink]="'/catalog/details/' + item._id">
         <div class="ad-image">
-          <img [src]="furniture.img" alt="Ad Image" />
+          <img [src]="item.img" alt="Ad Image" />
         </div>
         <div class="ad-details">
-          <h3>{{ furniture.name }}</h3>
-          <p class="price">${{ furniture.price }}</p>
+          <h3>{{ item.name }}</h3>
+          <p class="price">${{ item.price }}</p>
         </div>
       </div>
     </div>
   </div>
+
+  <mat-paginator
+    [length]="furniture.length"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage"
+    [pageSizeOptions]="[21, 33, 48]"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
 </div>

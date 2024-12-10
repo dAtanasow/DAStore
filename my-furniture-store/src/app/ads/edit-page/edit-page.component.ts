@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Furniture } from '../../types/furniture';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../api.service';
-import { FormsModule, NgForm } from '@angular/forms';
+import { AbstractControl, FormsModule, NgForm, NgModel } from '@angular/forms';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -14,8 +14,24 @@ import { NgIf } from '@angular/common';
 })
 export class EditComponent {
   furniture: Furniture | null = null;
-
   isLoading = true;
+  imagePattern: string = '^https?://.*\\.(?:jpg|jpeg|png|gif|webp)$';
+  allowedCategories: string[] = [
+    'chair',
+    'table',
+    'bed',
+    'wardrobe',
+    'bedside table',
+    'dresser',
+    'tv stand',
+    'display cabinet',
+    'corner sofa',
+    'sofa',
+    'coffee table',
+    'hocker',
+    'pouf',
+    'hanger',
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +47,24 @@ export class EditComponent {
         this.isLoading = false;
       });
     }
+  }
+
+  validateCategory(inputControl: NgModel): void {
+    const control: AbstractControl = inputControl.control;
+    if (
+      this.furniture &&
+      this.furniture.category &&
+      !this.allowedCategories.includes(this.furniture.category)
+    ) {
+      control.setErrors({ invalidCategory: true });
+    } else {
+      control.setErrors(null);
+    }
+  }
+
+  validateImageUrl(imageUrl: string): boolean {
+    const regex = new RegExp(this.imagePattern);
+    return regex.test(imageUrl);
   }
 
   updateAd(form: NgForm): void {
