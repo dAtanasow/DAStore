@@ -1,15 +1,66 @@
+.catalog-categories {
+  padding: 5px 15px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+  background-color: #333;
+  border-radius: 10px;
+  margin-top: 70px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.category-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.category-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.category-item h3 {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #555;
+}
+
+
 .catalog-container {
   padding: 20px;
   max-width: 1200px;
   margin: auto;
 }
 
-h1 {
+h2 {
+  color: #fff !important;
+}
+
+h2, h3 {
   text-align: center;
   width: 100%;
   font-size: 30px;
   margin-bottom: 50px;
-  margin-top: 0;
+  margin-top: 40px;
+  color: #333;
 }
 
 .ad-list {
@@ -25,6 +76,8 @@ h1 {
   width: calc(33% - 20px);
   box-sizing: border-box;
   text-align: center;
+  background-color: #333;
+  color: #fff;
 }
 
 .ad-image img {
@@ -35,7 +88,8 @@ h1 {
 
 .ad-details h3 {
   margin: 10px 0;
-  font-size: 1.2rem;
+  font-size: 20px;
+  color: #fff;
 }
 
 .price {

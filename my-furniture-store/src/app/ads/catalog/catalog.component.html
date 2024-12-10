@@ -1,11 +1,118 @@
-@if(isLoading) {
-<app-loader />
-} @else {
-<div class="catalog-container">
-  <h1>Catalog</h1>
+<section class="catalog-categories">
+  <h2>Categories</h2>
+  <div class="categories-grid">
+    <div class="category-item" (click)="loadByCategory('chair')">
+      <img
+        src="https://www.signal.pl/files/foto_add_small/foto_add-7359.webp?ts=1710707461"
+        alt="Chairs"
+      />
+      <h3>Chairs</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('table')">
+      <img
+        src="https://www.signal.pl/files/fotom/product-1574.webp?ts=1712820893"
+        alt="Tables"
+      />
+      <h3>Tables</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('bed')">
+      <img
+        src="https://moemax.bg/media/catalog/product/cache/46106d45206e2e006a21be3262e75eca/0/u/0uDH6n80pP0WuG9USjnNjvZjgb1Q3xm6_82107020099b.jpg"
+        alt="Beds"
+      />
+      <h3>Beds</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('wardrobe')">
+      <img
+        src="https://mebelino.bg/image/cache/catalog/products/formaideale/fileadmin/_processed_/5/c/csm-11012265-0c327bb959-500x350h.jpg"
+        alt="Wardrobes"
+      />
+      <h3>Wardrobes</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('bedside table')">
+      <img
+        src="https://monema.bg/image/cache/catalog/products/spalnya/1/noschno-shkafche-cali-c-17-dab-artizan-405092038-737x504.jpg"
+        alt="Bedside Tables"
+      />
+      <h3>Bedside Tables</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('dresser')">
+      <img
+        src="https://aiko-bg.com/media/catalog/product/cache/3f46d88ec256fe593532bbe316e2cbec/n/0/n0hrQAGDSzSn3naEcngz13v5HCQwIV6G_15865012848.jpg"
+        alt="Dressers"
+      />
+      <h3>Dressers</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('tv stand')">
+      <img
+        src="https://ikeabulgaria.akamaized.net/images/1860x1860/3/variantimages/80227797/0.jpg"
+        alt="TV Stands"
+      />
+      <h3>TV Stands</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('display cabinet')">
+      <img
+        src="https://maxmebel.eu/image/cache/catalog/001EVROMAR/00FORN/vitrina-forn-reg1d1w-copy-image_618538375923b_600x600-800x800.jpeg"
+        alt="Display Cabinets"
+      />
+      <h3>Display Cabinets</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('corner sofa')">
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUcoLSZAI8kT-0mssqfge_Ol_auZfIvQh3qw&s"
+        alt="Corner Sofas"
+      />
+      <h3>Corner Sofas</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('sofa')">
+      <img
+        src="https://cdn.technomarket.bg/ng/media/cache/mid_thumb/uploads/marketplace/87/DIVANI/3800168218234-1.jpg.webp"
+        alt="Sofas"
+      />
+      <h3>Sofas</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('coffee table')">
+      <img
+        src="https://www.signal.pl/files/fotom/product-165.webp?ts=1709303524"
+        alt="Coffee Tables"
+      />
+      <h3>Coffee Tables</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('hocker')">
+      <img
+        src="https://www.signal.pl/files/fotom/product-469.webp?ts=1712747379"
+        alt="Hockers"
+      />
+      <h3>Hockers</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('pouf')">
+      <img
+        src="https://www.signal.pl/files/fotom/product-853.jpeg?ts=1696507585"
+        alt="Poufs"
+      />
+      <h3>Poufs</h3>
+    </div>
+    <div class="category-item" (click)="loadByCategory('hanger')">
+      <img
+        src="https://www.signal.pl/files/fotom/product-762.png?ts=1696507546"
+        alt="Hangers"
+      />
+      <h3>Hangers</h3>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="!isLoading && noItemsMessage">
+  {{ noItemsMessage }}
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>
+
+<div *ngIf="!isLoading && !noItemsMessage" class="catalog-container">
+  <h3>Catalog</h3>
   <div class="ad-list">
     <div class="ad-item" *ngFor="let furniture of furniture">
-      <div [routerLink]="'/catalog/' + furniture._id">
+      <div [routerLink]="'/catalog/details/' + furniture._id">
         <div class="ad-image">
           <img [src]="furniture.img" alt="Ad Image" />
         </div>
@@ -17,4 +124,3 @@
     </div>
   </div>
 </div>
-}

@@ -14,6 +14,27 @@ const furnitureSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    category: {
+        type: String,
+        required: true,
+        enum: [
+            "chair",
+            "table",
+            "bed",
+            "wardrobe",
+            "bedside table",
+            "dresser",
+            "tv stand",
+            "display cabinet",
+            "corner sofa",
+            "sofa",
+            "coffee table",
+            "hocker",
+            "pouf",
+            "hanger"
+        ]
+
+    },
     dimensions: {
         width: {
             type: Number,
@@ -47,6 +68,7 @@ const furnitureSchema = new mongoose.Schema({
     },
     authorId: {
         type: ObjectId,
+        required: true,
         ref: "User"
     },
 }, { timestamps: { createdAt: 'created_at' } });

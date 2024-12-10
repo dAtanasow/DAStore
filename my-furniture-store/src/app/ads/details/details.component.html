@@ -2,11 +2,19 @@
 <app-loader />
 } @else {
 <div class="detail-container">
-  <div class="detail-content">
+  <div class="left-section">
     <div class="detail-image">
       <img [src]="furniture?.img" alt="Furniture Image" />
     </div>
-    <div class="detail-info">
+    <div class="author-info">
+      <h4>Seller information:</h4>
+      <p><strong>name:</strong> {{ author?.username }}</p>
+      <p><strong>email:</strong> {{ author?.email }}</p>
+      <p><strong>phone:</strong> {{ author?.phone }}</p>
+    </div>
+  </div>
+  <div class="right-section">
+    <div class="detail-content">
       <p><strong>Color:</strong> {{ furniture?.color }}</p>
       <p><strong>Material:</strong> {{ furniture?.material }}</p>
       <p><strong>Weight:</strong> {{ furniture?.weight }} kg</p>
@@ -17,14 +25,6 @@
         <p>Depth: {{ furniture?.dimensions?.depth }} cm</p>
         <p>Height: {{ furniture?.dimensions?.height }} cm</p>
       </div>
-    </div>
-  </div>
-  <div class="row-items">
-    <div class="author-info">
-      <h4>Author Details:</h4>
-      <p><strong>Name:</strong> {{ author?.username }}</p>
-      <p><strong>Email:</strong> {{ author?.email }}</p>
-      <p><strong>Phone:</strong> {{ author?.phone }}</p>
     </div>
     <div class="image-info">
       <h2>{{ furniture?.name }}</h2>

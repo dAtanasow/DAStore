@@ -23,9 +23,27 @@ async function getById(req, res, next) {
     }
 }
 
+async function getByCategory(req, res, next) {
+    const { category } = req.params;
+
+    try {
+        const furnitureItems = await furnitureModel.find({ category: category });
+
+        if (!furnitureItems || furnitureItems.length === 0) {
+            return res.status(200).json({ message: 'No furniture found in this category', data: [] });
+        }
+
+        res.json(furnitureItems);
+    } catch (error) {
+        next(error);
+    }
+}
+
 async function create(req, res, next) {
 
-    const { img, name, price, dimensions, color, material, weight } = req.body;
+    const { img, name, price, category, dimensions, color, material, weight } = req.body;
+    console.log(category);
+    
 
     if (!dimensions || Object.values(dimensions).some(value => value === 0)) {
         console.log('Dimensions validation failed');
@@ -34,7 +52,7 @@ async function create(req, res, next) {
 
     try {
         const newFurniture = await furnitureModel.create({
-            img, name, price, dimensions, color, material, weight, authorId: req.user._id
+            img, name, price, category, dimensions, color, material, weight, authorId: req.user._id
         });
 
         const updatedUser = await userModel.findById(req.user._id);
@@ -55,7 +73,7 @@ async function create(req, res, next) {
 }
 
 async function update(req, res, next) {
-    const { img, furnitureId, name, price, dimensions, color, material, weight } = req.body;
+    const { img, furnitureId, name, price, category, dimensions, color, material, weight } = req.body;
     const { _id: userId } = req.user;
 
     try {
@@ -66,7 +84,7 @@ async function update(req, res, next) {
 
         const updatedFurniture = await furnitureModel.findOneAndUpdate(
             { _id: furnitureId, authorId: userId },
-            { img, name, price, dimensions, color, material, weight }
+            { img, name, price, category, dimensions, color, material, weight }
         );
 
         if (!updatedFurniture) {
@@ -110,5 +128,6 @@ module.exports = {
     getById,
     create,
     update,
-    deleteById
+    deleteById,
+    getByCategory
 }

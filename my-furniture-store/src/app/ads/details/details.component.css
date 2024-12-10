@@ -1,89 +1,93 @@
 .detail-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  flex-wrap: wrap;
   gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 40px auto 0;
 }
 
-.detail-content {
+.left-section {
+  flex: 1;
+  max-width: 500px;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 20px;
-  width: 100%;
 }
 
 .detail-image {
+  width: 100%;
+  min-height: 400px;
+  max-height: 400px;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 500px;
 }
 
 .detail-image img {
+  width: 100%;
+  min-height: 400px;
+  max-height: 400px;
   width: 500px;
-  height: auto;
-  border: 1px solid #ddd;
+  min-width: 450px;
+  border: 1px solid #fff;
   border-radius: 8px;
-}
-
-.detail-info {
-  flex: 1;
-  padding: 20px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  border-radius: 8px;
-  font-size: 18px;
-  line-height: 14.5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.image-info {
-  background-color: #fff;
-  width: 200px;
-  text-align: center;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.row-items {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.image-info h2,
-.image-info .price {
-  margin: 10px 0;
 }
 
 .author-info {
-  text-align: start;
-  width: 470px;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  width: 470px;
+}
+
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.detail-content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
   font-size: 18px;
+  min-height: 360px;
+  max-height: 400px;
+  width: 200px;
+  overflow-wrap: break-word;
 }
 
-.author-info h4 {
-  margin: 10px 5px 10px;
+.image-info {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  text-align: center;
+  width: 210px;
 }
 
-.author-info p {
-  margin: 7px;
+.image-info h2 {
+  margin: 10px 0;
 }
+
+.image-info .price {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .action-buttons {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   gap: 10px;
   justify-content: center;
-  align-items: center;
 }
 
 .edit-button,
@@ -94,8 +98,6 @@
   cursor: pointer;
   font-size: 1em;
   color: #fff;
-  display: inline-block;
-  text-align: center;
 }
 
 .edit-button {
@@ -107,7 +109,7 @@
 }
 
 .delete-button {
-  background-color: #e74c3c; /* Червено */
+  background-color: #e74c3c;
 }
 
 .delete-button:hover {
@@ -115,7 +117,6 @@
 }
 
 .add-to-cart {
-  margin-top: 20px;
   padding: 10px 20px;
   background-color: #28a745;
   color: #fff;
@@ -123,7 +124,6 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 1em;
-  align-self: flex-start;
 }
 
 .add-to-cart:hover {

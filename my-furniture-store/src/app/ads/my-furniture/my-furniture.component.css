@@ -2,14 +2,16 @@
   padding: 20px;
   max-width: 1200px;
   margin: auto;
+  margin-top: 50px;
 }
 
-h1 {
-    text-align: center;
-    width: 100%;
-    font-size: 30px;
-    margin-bottom: 50px;
-    margin-top: 0;
+h2 {
+  text-align: center;
+  width: 100%;
+  font-size: 30px;
+  margin-bottom: 40px;
+  margin-top: 30px;
+  color: #333;
 }
 
 .ad-list {
@@ -25,6 +27,7 @@ h1 {
   width: calc(33% - 20px);
   box-sizing: border-box;
   text-align: center;
+  background-color: #333;
 }
 
 .ad-image img {
@@ -35,10 +38,12 @@ h1 {
 
 .ad-details h3 {
   margin: 10px 0;
-  font-size: 1.2rem;
+  font-size: 20px;
+  color: #fff;
 }
 
 .price {
   font-size: 22px;
   font-weight: bold;
+  color: #fff;
 }

@@ -41,13 +41,14 @@ export class EditComponent {
           this.furniture.img,
           this.furniture.name,
           this.furniture.price,
+          this.furniture.category,
           this.furniture.dimensions,
           this.furniture.color,
           this.furniture.material,
           this.furniture.weight
         )
         .subscribe(() => {
-          this.router.navigate(['/catalog', this.furniture?._id]);
+          this.router.navigate(['/catalog/details', this.furniture?._id]);
         });
     }
   }
@@ -56,7 +57,7 @@ export class EditComponent {
     if (
       confirm('Are you sure you want to cancel? Unsaved changes will be lost.')
     ) {
-      this.router.navigate(['/catalog']);
+      this.router.navigate(['/my-furniture']);
     }
   }
 }

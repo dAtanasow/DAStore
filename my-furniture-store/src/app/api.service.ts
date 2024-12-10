@@ -18,19 +18,33 @@ export class ApiService {
   }
 
   getSingleFurniture(id: string): Observable<Furniture> {
-    return this.http.get<Furniture>(`/api/catalog/${id}`);
+    return this.http.get<Furniture>(`/api/catalog/details/${id}`);
+  }
+
+  getByCategory(category: string): Observable<Furniture[]> {
+    return this.http.get<Furniture[]>(`/api/catalog/${category}`);
   }
 
   createFurniture(
     img: string,
     name: string,
     price: number,
+    category: string,
     dimensions: Dimensions,
     color: string,
     material: string,
     weight: number
   ): Observable<Furniture> {
-    const payload = { img, name, price, dimensions, color, material, weight };
+    const payload = {
+      img,
+      name,
+      price,
+      category,
+      dimensions,
+      color,
+      material,
+      weight,
+    };
     return this.http.post<Furniture>(`/api/furniture/create`, payload);
   }
 
@@ -39,6 +53,7 @@ export class ApiService {
     img: string,
     name: string,
     price: number,
+    category: string,
     dimensions: Dimensions,
     color: string,
     material: string,
@@ -49,15 +64,16 @@ export class ApiService {
       img,
       name,
       price,
+      category,
       dimensions,
       color,
       material,
       weight,
     };
-    return this.http.put<Furniture>(`/api/catalog/${furnitureId}`, payload);
+    return this.http.put<Furniture>(`/api/catalog/details/${furnitureId}`, payload);
   }
 
   deleteAd(furnitureId: string) {
-    return this.http.delete(`/api/catalog/${furnitureId}`);
+    return this.http.delete(`/api/catalog/details/${furnitureId}`);
   }
 }
